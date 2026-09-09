@@ -110,8 +110,8 @@ function Contact() {
           <div className="contact-header">
             <p className="section-label">Contact</p>
             <h2 id="contact-heading" className="section-title">Let's Work Together</h2>
-            <p className="contact-intro placeholder-text">
-              [I'm always open to discussing new projects, creative ideas, or opportunities to be part of your team. This is placeholder content.]
+            <p className="contact-intro">
+              I'm always open to discussing new projects, creative ideas, or opportunities to collaborate. Feel free to reach out via email or phone.
             </p>
           </div>
           <div className="contact-success" role="alert">
@@ -141,8 +141,8 @@ function Contact() {
         <div className="contact-header">
           <p className="section-label">Contact</p>
           <h2 id="contact-heading" className="section-title">Let's Work Together</h2>
-          <p className="contact-intro placeholder-text">
-            [I'm always open to discussing new projects, creative ideas, or opportunities to be part of your team. This is placeholder content.]
+          <p className="contact-intro">
+            I'm always open to discussing new projects, creative ideas, or opportunities to collaborate. Feel free to reach out via email or phone.
           </p>
         </div>
         <form className="contact-form" onSubmit={handleSubmit} noValidate>

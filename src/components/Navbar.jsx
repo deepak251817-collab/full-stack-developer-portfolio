@@ -43,7 +43,7 @@ function Navbar() {
     >
       <div className="navbar-container">
         <a href="#hero" className="navbar-brand" aria-label="Go to homepage">
-          [Your Name]
+          Deepak R
         </a>
 
         <div className="navbar-desktop">

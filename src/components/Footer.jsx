@@ -6,11 +6,11 @@ function Footer() {
       <div className="section-container">
         <div className="footer-content">
           <p className="footer-copyright">
-            &copy; {currentYear} [Your Name Here]. All rights reserved.
+            &copy; {currentYear} Deepak R. All rights reserved.
           </p>
           <div className="footer-social">
-            <p className="placeholder-text footer-social-text">
-              [Social links placeholder: GitHub, LinkedIn, Twitter, Email]
+            <p className="footer-social-text placeholder-text">
+              [GitHub: placeholder · LinkedIn: placeholder · Email: deepak251817@gmail.com · Phone: +91 8867034217]
             </p>
           </div>
         </div>

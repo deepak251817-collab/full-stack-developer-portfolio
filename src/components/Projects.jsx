@@ -1,9 +1,10 @@
 const projectData = [
   {
     id: 1,
-    title: '[Project Name 1]',
-    description: '[Brief description of the project, what it does, and your role. This is placeholder content.]',
-    technologies: ['React', 'Node.js', 'PostgreSQL'],
+    title: 'FinTrack – AI Expense Manager',
+    description:
+      'An AI-powered expense management application for tracking transactions, budgets and spending patterns. Features expense forecasting using Linear Regression, automatic transaction categorization using TF-IDF and Logistic Regression, and Isolation Forest-based anomaly detection, all exposed via FastAPI REST endpoints.',
+    technologies: ['Python', 'FastAPI', 'Pandas', 'NumPy', 'Scikit-learn', 'JavaScript'],
     githubUrl: null,
     liveUrl: null,
     image: null,
@@ -11,9 +12,10 @@ const projectData = [
   },
   {
     id: 2,
-    title: '[Project Name 2]',
-    description: '[Brief description of the project, what it does, and your role. This is placeholder content.]',
-    technologies: ['Next.js', 'TypeScript', 'MongoDB'],
+    title: 'STARS RouteFinder – Road Safety Navigation',
+    description:
+      'A route planning application with multiple route comparison and interactive Mapbox visualization. Includes traffic and weather information, route-specific environmental insights, pothole reporting, camera uploads with EXIF GPS extraction, browser geolocation, and Tesseract.js OCR fallback.',
+    technologies: ['React', 'Vite', 'Mapbox GL JS', 'Recharts', 'OpenWeather API', 'Tesseract.js'],
     githubUrl: null,
     liveUrl: null,
     image: null,
@@ -21,9 +23,10 @@ const projectData = [
   },
   {
     id: 3,
-    title: '[Project Name 3]',
-    description: '[Brief description of the project, what it does, and your role. This is placeholder content.]',
-    technologies: ['Vue.js', 'Express.js', 'MySQL'],
+    title: 'Ocean Guardian AI',
+    description:
+      'An interactive platform for monitoring ocean health, marine biodiversity and pollution. Features interactive maps, data visualization dashboards, ocean health monitoring, temperature data, species information, coral reef information, pollution trends, alert monitoring, reports, ocean details, AI assistant interface, and responsive React application.',
+    technologies: ['React', 'Vite', 'Tailwind CSS', 'Recharts', 'Leaflet', 'Framer Motion'],
     githubUrl: null,
     liveUrl: null,
     image: null,
@@ -56,9 +59,7 @@ function ProjectCard({ project }) {
         <p className="project-description">{project.description}</p>
         <div className="project-tech">
           {project.technologies.map((tech, index) => (
-            <span key={index} className="tech-tag placeholder-tech">
-              {tech}
-            </span>
+            <span key={index} className="tech-tag">{tech}</span>
           ))}
         </div>
         <div className="project-links">
@@ -105,10 +106,6 @@ function Projects() {
         <div className="projects-header">
           <p className="section-label">Projects</p>
           <h2 id="projects-heading" className="section-title">Featured Projects</h2>
-          <p className="projects-description placeholder-text">
-            [These projects demonstrate practical full stack development skills across
-            frontend, backend, and database technologies. This is placeholder content.]
-          </p>
         </div>
         <div className="projects-grid">
           {projectData.map((project) => (
@@ -116,7 +113,7 @@ function Projects() {
           ))}
         </div>
         <p className="placeholder-note">
-          [All projects above are placeholders. Replace with your actual projects and add real GitHub/live URLs.]
+          [GitHub and Live Demo links are placeholders. Add real URLs when available.]
         </p>
       </div>
     </section>

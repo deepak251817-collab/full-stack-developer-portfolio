@@ -5,13 +5,11 @@ function Hero() {
         <div className="hero-content">
           <p className="hero-greeting">Hello, I'm</p>
           <h1 id="hero-heading" className="hero-name">
-            [Your Name Here]
+            Deepak R
           </h1>
-          <p className="hero-title">Full Stack Developer</p>
+          <p className="hero-title">Full Stack Developer & AI/ML Undergraduate</p>
           <p className="hero-description">
-            [Short professional description about your background, expertise, and what you
-            bring to a team. This is placeholder content that will be replaced with your
-            actual introduction.]
+            Artificial Intelligence and Machine Learning undergraduate interested in building practical software applications that combine frontend, backend, data and AI/ML technologies. I work with Python, Java, JavaScript and SQL, and have experience with modern frontend and backend technologies including React, Vite, Node.js, FastAPI and REST APIs.
           </p>
           <div className="hero-buttons">
             <a href="#projects" className="btn btn-primary">View Projects</a>

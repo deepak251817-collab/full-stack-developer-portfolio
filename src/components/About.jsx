@@ -1,14 +1,35 @@
 function About() {
   const highlights = [
-    { label: 'Full Stack Development', description: 'Building end-to-end web applications' },
-    { label: 'Problem Solving', description: 'Breaking down complex challenges into clean solutions' },
-    { label: 'Continuous Learning', description: 'Staying current with modern development practices' }
+    { label: 'Full Stack Development', description: 'Building end-to-end web applications with React, Node.js, FastAPI' },
+    { label: 'AI/ML Integration', description: 'Applying ML models (Linear/Logistic Regression, Isolation Forest, TF-IDF) in production apps' },
+    { label: 'Data Visualization', description: 'Interactive dashboards with Recharts, Leaflet, Mapbox GL JS' }
   ]
 
   const profileInfo = [
-    { label: 'Education', value: '[Your Degree / Bootcamp]' },
-    { label: 'Location', value: '[City, Country]' },
-    { label: 'Current Focus', value: '[e.g. React, Node.js, TypeScript]' }
+    { label: 'Education', value: 'B.E. in AI & ML, K.S. Institute of Technology (CGPA: 9.16/10)' },
+    { label: 'Location', value: 'Bengaluru, India' },
+    { label: 'Current Focus', value: 'Full Stack Development, AI/ML Applications' }
+  ]
+
+  const achievements = [
+    {
+      title: 'HackOcean 2026',
+      detail: 'Finalist — National-Level Frontend Hackathon, Digital Learning Group (DLG), MITS Gwalior',
+      date: 'July 2026'
+    },
+    {
+      title: 'Null Point',
+      detail: 'Technical Event Participant, K.S. Institute of Technology, Bengaluru'
+    }
+  ]
+
+  const certifications = [
+    'Deloitte Australia Data Analytics Job Simulation — Forage, 2026',
+    'Scientific Computing with Python — freeCodeCamp',
+    'Python Fundamentals — Infosys Springboard',
+    'Java for Beginners — Infosys Springboard',
+    'Java Programming — Great Learning',
+    'UI/UX for Beginners — Great Learning'
   ]
 
   return (
@@ -16,19 +37,15 @@ function About() {
       <div className="section-container">
         <div className="about-header">
           <p className="section-label">About Me</p>
-          <h2 id="about-heading" className="section-title">Full Stack Developer passionate about building practical software</h2>
+          <h2 id="about-heading" className="section-title">Full Stack Developer & AI/ML Undergraduate</h2>
         </div>
         <div className="about-grid">
           <div className="about-content">
-            <p className="about-paragraph placeholder-text">
-              [I'm a Full Stack Developer with a focus on building reliable, user-centered web applications.
-              My background includes experience with modern frontend and backend technologies. This is
-              placeholder content that will be replaced with your actual professional summary.]
+            <p className="about-paragraph">
+              Artificial Intelligence and Machine Learning undergraduate interested in building practical software applications that combine frontend, backend, data and AI/ML technologies.
             </p>
-            <p className="about-paragraph placeholder-text">
-              [I enjoy learning new technologies and applying them to solve real problems. My interests
-              include clean code architecture, developer experience, and creating software that makes a
-              difference. I'm always looking to grow through challenging projects and collaboration.]
+            <p className="about-paragraph">
+              I work with Python, Java, JavaScript and SQL, and have experience with modern frontend and backend technologies including React, Vite, Node.js, FastAPI and REST APIs.
             </p>
             <div className="about-highlights">
               {highlights.map((item, index) => (
@@ -46,6 +63,28 @@ function About() {
                 </div>
               ))}
             </div>
+            <div className="about-achievements">
+              <h3 className="achievements-title">Achievements</h3>
+              <ul className="achievements-list">
+                {achievements.map((item, index) => (
+                  <li key={index} className="achievement-item">
+                    <div className="achievement-header">
+                      <strong>{item.title}</strong>
+                      {item.date && <span className="achievement-date">{item.date}</span>}
+                    </div>
+                    <p className="achievement-detail">{item.detail}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="about-certifications">
+              <h3 className="achievements-title">Certifications</h3>
+              <ul className="certifications-list">
+                {certifications.map((cert, index) => (
+                  <li key={index} className="certification-item">{cert}</li>
+                ))}
+              </ul>
+            </div>
           </div>
           <aside className="about-visual" aria-hidden="true">
             <div className="profile-card">
@@ -59,7 +98,7 @@ function About() {
                 {profileInfo.map((item, index) => (
                   <div key={index} className="profile-info-item">
                     <dt className="profile-info-label">{item.label}</dt>
-                    <dd className="profile-info-value placeholder-text">{item.value}</dd>
+                    <dd className="profile-info-value">{item.value}</dd>
                   </div>
                 ))}
               </div>
