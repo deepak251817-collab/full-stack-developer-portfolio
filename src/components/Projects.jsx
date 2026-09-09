@@ -100,7 +100,7 @@ function ProjectCard({ project }) {
 
 function Projects() {
   return (
-    <section id="projects" className="projects" aria-labelledby="projects-heading">
+    <section id="projects" className="projects fade-in" aria-labelledby="projects-heading">
       <div className="section-container">
         <div className="projects-header">
           <p className="section-label">Projects</p>

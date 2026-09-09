@@ -12,7 +12,7 @@ function About() {
   ]
 
   return (
-    <section id="about" className="about" aria-labelledby="about-heading">
+    <section id="about" className="about fade-in" aria-labelledby="about-heading">
       <div className="section-container">
         <div className="about-header">
           <p className="section-label">About Me</p>

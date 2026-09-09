@@ -19,7 +19,7 @@ function Skills() {
   ]
 
   return (
-    <section id="skills" className="skills" aria-labelledby="skills-heading">
+    <section id="skills" className="skills fade-in" aria-labelledby="skills-heading">
       <div className="section-container">
         <div className="skills-header">
           <h2 id="skills-heading" className="section-title">Skills & Tools</h2>
