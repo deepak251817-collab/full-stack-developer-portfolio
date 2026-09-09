@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 function Skills() {
   const skillCategories = [
     {
@@ -27,23 +29,54 @@ function Skills() {
   ]
 
   return (
-    <section id="skills" className="skills fade-in" aria-labelledby="skills-heading">
+    <section id="skills" className="skills" aria-labelledby="skills-heading">
       <div className="section-container">
-        <div className="skills-header">
+        <motion.div
+          className="skills-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 id="skills-heading" className="section-title">Skills & Tools</h2>
-        </div>
-        <div className="skills-grid">
-          {skillCategories.map(({ category, skills }) => (
-            <div key={category} className="skill-category">
+        </motion.div>
+
+        <motion.div
+          className="skills-grid"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5 }}
+        >
+          {skillCategories.map(({ category, skills }, catIndex) => (
+            <motion.div
+              key={category}
+              className="skill-category"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: catIndex * 0.08 }}
+              whileHover={{ y: -4 }}
+            >
               <h3 className="skill-category-title">{category}</h3>
-              <ul className="skill-list">
+              <ul className="skill-list" role="list">
                 {skills.map((skill, index) => (
-                  <li key={index} className="skill-item">{skill}</li>
+                  <motion.li
+                    key={index}
+                    className="skill-item"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: catIndex * 0.08 + index * 0.03 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {skill}
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

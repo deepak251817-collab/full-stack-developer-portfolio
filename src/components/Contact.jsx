@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { CheckCircle, Send, Loader } from 'lucide-react'
 
 const initialValues = {
   name: '',
@@ -9,7 +11,7 @@ const initialValues = {
 
 const validateField = (name, value) => {
   const trimmed = value.trim()
-  
+
   switch (name) {
     case 'name':
       if (!trimmed) return 'Please enter your name.'
@@ -42,7 +44,7 @@ function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setValues(prev => ({ ...prev, [name]: value }))
-    
+
     if (touched[name]) {
       setErrors(prev => ({ ...prev, [name]: validateField(name, value) }))
     }
@@ -57,7 +59,7 @@ function Contact() {
   const validateAll = () => {
     const newErrors = {}
     let isValid = true
-    
+
     Object.keys(initialValues).forEach(field => {
       const error = validateField(field, values[field])
       if (error) {
@@ -65,7 +67,7 @@ function Contact() {
         isValid = false
       }
     })
-    
+
     setErrors(newErrors)
     setTouched({ name: true, email: true, subject: true, message: true })
     return isValid
@@ -73,11 +75,11 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     if (!validateAll()) return
-    
+
     setIsSubmitting(true)
-    
+
     setTimeout(() => {
       setIsSubmitting(false)
       setIsSuccess(true)
@@ -105,48 +107,131 @@ function Contact() {
 
   if (isSuccess) {
     return (
-<section id="contact" className="contact fade-in" aria-labelledby="contact-heading">
+      <motion.section
+        id="contact"
+        className="contact"
+        aria-labelledby="contact-heading"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="section-container">
-          <div className="contact-header">
+          <motion.div
+            className="contact-header"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <p className="section-label">Contact</p>
             <h2 id="contact-heading" className="section-title">Let's Work Together</h2>
             <p className="contact-intro">
               I'm always open to discussing new projects, creative ideas, or opportunities to collaborate. Feel free to reach out via email or phone.
             </p>
-          </div>
-          <div className="contact-success" role="alert">
-            <div className="success-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-            </div>
-            <h3 className="success-title">Thanks!</h3>
-            <p className="success-message">Your message has been validated successfully.</p>
-            <p className="success-note placeholder-text">
+          </motion.div>
+
+          <motion.div
+            className="contact-success"
+            role="alert"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <motion.div
+              className="success-icon"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              aria-hidden="true"
+            >
+              <CheckCircle size={32} />
+            </motion.div>
+
+            <motion.h3
+              className="success-title"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              Thanks!
+            </motion.h3>
+
+            <motion.p
+              className="success-message"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+            >
+              Your message has been validated successfully.
+            </motion.p>
+
+            <motion.p
+              className="success-note"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+            >
               [In a real implementation, this form would connect to a backend service to send the message. No actual email was sent.]
-            </p>
-            <button type="button" className="btn btn-secondary" onClick={resetSuccess}>
+            </motion.p>
+
+            <motion.button
+              type="button"
+              className="btn btn-secondary"
+              onClick={resetSuccess}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+            >
               Send Another Message
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
     )
   }
 
   return (
-    <section id="contact" className="contact fade-in" aria-labelledby="contact-heading">
+    <motion.section
+      id="contact"
+      className="contact"
+      aria-labelledby="contact-heading"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="section-container">
-        <div className="contact-header">
+        <motion.div
+          className="contact-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <p className="section-label">Contact</p>
           <h2 id="contact-heading" className="section-title">Let's Work Together</h2>
           <p className="contact-intro">
             I'm always open to discussing new projects, creative ideas, or opportunities to collaborate. Feel free to reach out via email or phone.
           </p>
-        </div>
-        <form className="contact-form" onSubmit={handleSubmit} noValidate>
-          <div className="form-group">
+        </motion.div>
+
+        <motion.form
+          className="contact-form"
+          onSubmit={handleSubmit}
+          noValidate
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <motion.div
+            className="form-group"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
             <label htmlFor="name" className="form-label">
               Full Name
             </label>
@@ -156,13 +241,30 @@ function Contact() {
               className={`form-input ${touched.name && errors.name ? 'form-input-error' : ''}`}
               placeholder="Your full name"
             />
-            {touched.name && errors.name && (
-              <p id="name-error" className="form-error" role="alert">
-                {errors.name}
-              </p>
-            )}
-          </div>
-          <div className="form-group">
+            <AnimatePresence>
+              {touched.name && errors.name && (
+                <motion.p
+                  id="name-error"
+                  className="form-error"
+                  role="alert"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {errors.name}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.div
+            className="form-group"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+          >
             <label htmlFor="email" className="form-label">
               Email Address
             </label>
@@ -172,13 +274,30 @@ function Contact() {
               className={`form-input ${touched.email && errors.email ? 'form-input-error' : ''}`}
               placeholder="your.email@example.com"
             />
-            {touched.email && errors.email && (
-              <p id="email-error" className="form-error" role="alert">
-                {errors.email}
-              </p>
-            )}
-          </div>
-          <div className="form-group">
+            <AnimatePresence>
+              {touched.email && errors.email && (
+                <motion.p
+                  id="email-error"
+                  className="form-error"
+                  role="alert"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {errors.email}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.div
+            className="form-group"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
             <label htmlFor="subject" className="form-label">
               Subject
             </label>
@@ -188,13 +307,30 @@ function Contact() {
               className={`form-input ${touched.subject && errors.subject ? 'form-input-error' : ''}`}
               placeholder="What's this about?"
             />
-            {touched.subject && errors.subject && (
-              <p id="subject-error" className="form-error" role="alert">
-                {errors.subject}
-              </p>
-            )}
-          </div>
-          <div className="form-group">
+            <AnimatePresence>
+              {touched.subject && errors.subject && (
+                <motion.p
+                  id="subject-error"
+                  className="form-error"
+                  role="alert"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {errors.subject}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.div
+            className="form-group"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.25 }}
+          >
             <label htmlFor="message" className="form-label">
               Message
             </label>
@@ -204,25 +340,59 @@ function Contact() {
               placeholder="Your message..."
               rows="6"
             />
-            {touched.message && errors.message && (
-              <p id="message-error" className="form-error" role="alert">
-                {errors.message}
-              </p>
-            )}
-          </div>
-          <button
+            <AnimatePresence>
+              {touched.message && errors.message && (
+                <motion.p
+                  id="message-error"
+                  className="form-error"
+                  role="alert"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {errors.message}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.button
             type="submit"
             className="btn btn-primary form-submit"
             disabled={isSubmitting}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.3 }}
           >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </button>
-        </form>
-        <p className="placeholder-note">
+            {isSubmitting ? (
+              <>
+                <Loader size={20} className="btn-spinner" aria-hidden="true" />
+                Sending...
+              </>
+            ) : (
+              <>
+                Send Message
+                <Send size={20} className="btn-icon" aria-hidden="true" />
+              </>
+            )}
+          </motion.button>
+        </motion.form>
+
+        <motion.p
+          className="placeholder-note"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           [This form demonstrates client-side validation. Backend integration would be added in a production environment.]
-        </p>
+        </motion.p>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

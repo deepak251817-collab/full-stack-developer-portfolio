@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 function About() {
   const highlights = [
     { label: 'Full Stack Development', description: 'Building end-to-end web applications with React, Node.js, FastAPI' },
@@ -33,23 +35,63 @@ function About() {
   ]
 
   return (
-    <section id="about" className="about fade-in" aria-labelledby="about-heading">
+    <section id="about" className="about" aria-labelledby="about-heading">
       <div className="section-container">
-        <div className="about-header">
+        <motion.div
+          className="about-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
+        >
           <p className="section-label">About Me</p>
           <h2 id="about-heading" className="section-title">Full Stack Developer & AI/ML Undergraduate</h2>
-        </div>
-        <div className="about-grid">
-          <div className="about-content">
-            <p className="about-paragraph">
+        </motion.div>
+
+        <motion.div
+          className="about-grid"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div className="about-content">
+            <motion.p
+              className="about-paragraph"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               Artificial Intelligence and Machine Learning undergraduate interested in building practical software applications that combine frontend, backend, data and AI/ML technologies.
-            </p>
-            <p className="about-paragraph">
+            </motion.p>
+            <motion.p
+              className="about-paragraph"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               I work with Python, Java, JavaScript and SQL, and have experience with modern frontend and backend technologies including React, Vite, Node.js, FastAPI and REST APIs.
-            </p>
-            <div className="about-highlights">
+            </motion.p>
+
+            <motion.div
+              className="about-highlights"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               {highlights.map((item, index) => (
-                <div key={index} className="highlight-item">
+                <motion.div
+                  key={index}
+                  className="highlight-item"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                  whileHover={{ x: 4 }}
+                >
                   <div className="highlight-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />
@@ -60,33 +102,70 @@ function About() {
                     <strong>{item.label}</strong>
                     <span>{item.description}</span>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
-            <div className="about-achievements">
+            </motion.div>
+
+            <motion.div
+              className="about-achievements"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
               <h3 className="achievements-title">Achievements</h3>
-              <ul className="achievements-list">
+              <ul className="achievements-list" role="list">
                 {achievements.map((item, index) => (
-                  <li key={index} className="achievement-item">
+                  <motion.li
+                    key={index}
+                    className="achievement-item"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  >
                     <div className="achievement-header">
                       <strong>{item.title}</strong>
-                      {item.date && <span className="achievement-date">{item.date}</span>}
+                      {item.date && <time className="achievement-date" dateTime={item.date}>{item.date}</time>}
                     </div>
                     <p className="achievement-detail">{item.detail}</p>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
-            <div className="about-certifications">
+            </motion.div>
+
+            <motion.div
+              className="about-certifications"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
               <h3 className="achievements-title">Certifications</h3>
-              <ul className="certifications-list">
+              <ul className="certifications-list" role="list">
                 {certifications.map((cert, index) => (
-                  <li key={index} className="certification-item">{cert}</li>
+                  <motion.li
+                    key={index}
+                    className="certification-item"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.9 + index * 0.05 }}
+                  >
+                    {cert}
+                  </motion.li>
                 ))}
               </ul>
-            </div>
-          </div>
-          <aside className="about-visual" aria-hidden="true">
+            </motion.div>
+          </motion.div>
+
+          <motion.aside
+            className="about-visual"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <div className="profile-card">
               <div className="profile-placeholder">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -96,15 +175,22 @@ function About() {
               </div>
               <div className="profile-info">
                 {profileInfo.map((item, index) => (
-                  <div key={index} className="profile-info-item">
+                  <motion.div
+                    key={index}
+                    className="profile-info-item"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                  >
                     <dt className="profile-info-label">{item.label}</dt>
                     <dd className="profile-info-value">{item.value}</dd>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </aside>
-        </div>
+          </motion.aside>
+        </motion.div>
       </div>
     </section>
   )
