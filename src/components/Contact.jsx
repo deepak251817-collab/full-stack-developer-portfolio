@@ -136,7 +136,7 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="contact" aria-labelledby="contact-heading">
+    <section id="contact" className="contact fade-in" aria-labelledby="contact-heading">
       <div className="section-container">
         <div className="contact-header">
           <p className="section-label">Contact</p>
