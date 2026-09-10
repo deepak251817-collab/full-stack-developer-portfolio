@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Filter, X, ChevronDown } from 'lucide-react'
+import SearchToolbar from './SearchToolbar';
 import { certificationData, certificationCategories, getCertificationsByCategory } from '../data/certifications'
 import CertificationCard from './CertificationCard'
 
@@ -55,79 +55,20 @@ export function AllCertifications() {
         </motion.div>
 
         <motion.div
-          className="certifications-toolbar"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <div className="search-wrapper">
-            <label htmlFor="cert-search" className="sr-only">Search certifications</label>
-            <Search className="search-icon" aria-hidden="true" />
-            <input
-              id="cert-search"
-              type="search"
-              className="search-input"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <SearchToolbar
               placeholder="Search certifications by title, provider, or description..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              aria-describedby="cert-search-hint"
+              searchQuery={searchQuery}
+              onSearchChange={handleSearchChange}
+              onClearSearch={clearSearch}
+              categories={certificationCategories}
+              activeCategory={activeCategory}
+              onCategorySelect={handleCategoryChange}
             />
-            {searchQuery && (
-              <motion.button
-                className="search-clear"
-                onClick={clearSearch}
-                aria-label="Clear search"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <X size={16} aria-hidden="true" />
-              </motion.button>
-            )}
-            <span id="cert-search-hint" className="sr-only">
-              {filteredCertifications.length} of {certificationData.length} certifications shown
-            </span>
-          </div>
-
-          <div className="filter-wrapper">
-            <button
-              className={`filter-trigger ${isMobileFilterOpen ? 'open' : ''}`}
-              onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
-              aria-expanded={isMobileFilterOpen}
-              aria-haspopup="listbox"
-              aria-label="Filter by category"
-            >
-              <Filter className="filter-icon" aria-hidden="true" />
-              <span>{certificationCategories.find(c => c.id === activeCategory)?.label || 'All'}</span>
-              <ChevronDown className={`chevron ${isMobileFilterOpen ? 'open' : ''}`} aria-hidden="true" />
-            </button>
-
-            <AnimatePresence>
-              {isMobileFilterOpen && (
-                <motion.div
-                  className="filter-dropdown"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  role="listbox"
-                  aria-label="Certification categories"
-                >
-                  {certificationCategories.map(category => (
-                    <button
-                      key={category.id}
-                      className={`filter-option ${activeCategory === category.id ? 'active' : ''}`}
-                      onClick={() => handleCategoryChange(category.id)}
-                      role="option"
-                      aria-selected={activeCategory === category.id}
-                    >
-                      {category.label}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+          </motion.div>
 
         <motion.div
           className="certifications-results"

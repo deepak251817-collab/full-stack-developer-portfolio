@@ -13,26 +13,9 @@ function About() {
     { label: 'Current Focus', value: 'Full Stack Development, AI/ML Applications' }
   ]
 
-  const achievements = [
-    {
-      title: 'HackOcean 2026',
-      detail: 'Finalist — National-Level Frontend Hackathon, Digital Learning Group (DLG), MITS Gwalior',
-      date: 'July 2026'
-    },
-    {
-      title: 'Null Point',
-      detail: 'Technical Event Participant, K.S. Institute of Technology, Bengaluru'
-    }
-  ]
 
-  const certifications = [
-    'Deloitte Australia Data Analytics Job Simulation — Forage, 2026',
-    'Scientific Computing with Python — freeCodeCamp',
-    'Python Fundamentals — Infosys Springboard',
-    'Java for Beginners — Infosys Springboard',
-    'Java Programming — Great Learning',
-    'UI/UX for Beginners — Great Learning'
-  ]
+
+
 
   return (
     <section id="about" className="about" aria-labelledby="about-heading">
@@ -106,57 +89,9 @@ function About() {
               ))}
             </motion.div>
 
-            <motion.div
-              className="about-achievements"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              <h3 className="achievements-title">Achievements</h3>
-              <ul className="achievements-list" role="list">
-                {achievements.map((item, index) => (
-                  <motion.li
-                    key={index}
-                    className="achievement-item"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
-                  >
-                    <div className="achievement-header">
-                      <strong>{item.title}</strong>
-                      {item.date && <time className="achievement-date" dateTime={item.date}>{item.date}</time>}
-                    </div>
-                    <p className="achievement-detail">{item.detail}</p>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
 
-            <motion.div
-              className="about-certifications"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <h3 className="achievements-title">Certifications</h3>
-              <ul className="certifications-list" role="list">
-                {certifications.map((cert, index) => (
-                  <motion.li
-                    key={index}
-                    className="certification-item"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.9 + index * 0.05 }}
-                  >
-                    {cert}
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
+
+
           </motion.div>
 
           <motion.aside

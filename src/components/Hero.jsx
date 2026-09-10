@@ -88,16 +88,7 @@ function Hero() {
             <a href="#contact" className="btn btn-secondary">
               Contact Me
             </a>
-            <a
-              href={resumePath}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost"
-              aria-label="View Resume"
-            >
-              <FileText size={18} aria-hidden="true" className="btn-icon" />
-              View Resume
-            </a>
+
             <a
               href={resumePath}
               download="Deepak_R_Resume.pdf"

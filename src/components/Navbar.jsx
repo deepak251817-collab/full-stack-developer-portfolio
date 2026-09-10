@@ -125,15 +125,6 @@ function Navbar() {
 
           <div className="navbar-actions">
             <ThemeToggle />
-            <motion.a
-              href="#contact"
-              className="btn btn-primary navbar-cta"
-              onClick={closeMenu}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Contact Me
-            </motion.a>
           </div>
         </motion.div>
 

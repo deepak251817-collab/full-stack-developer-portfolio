@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import SearchToolbar from './SearchToolbar'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Filter, X, ChevronDown } from 'lucide-react'
 import { projectData, projectCategories, getProjectsByCategory } from '../data/projects'
@@ -65,78 +66,19 @@ export function AllProjects() {
         </motion.div>
 
         <motion.div
-          className="projects-toolbar"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="search-wrapper">
-            <label htmlFor="project-search" className="sr-only">Search projects</label>
-            <Search className="search-icon" aria-hidden="true" />
-            <input
-              id="project-search"
-              type="search"
-              className="search-input"
-              placeholder="Search projects by title, description, or technology..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              aria-describedby="search-hint"
-            />
-            {searchQuery && (
-              <motion.button
-                className="search-clear"
-                onClick={clearSearch}
-                aria-label="Clear search"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <X size={16} aria-hidden="true" />
-              </motion.button>
-            )}
-            <span id="search-hint" className="sr-only">
-              {filteredProjects.length} of {projectData.length} projects shown
-            </span>
-          </div>
-
-          <div className="filter-wrapper">
-            <button
-              className={`filter-trigger ${isMobileFilterOpen ? 'open' : ''}`}
-              onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
-              aria-expanded={isMobileFilterOpen}
-              aria-haspopup="listbox"
-              aria-label="Filter by category"
-            >
-              <Filter className="filter-icon" aria-hidden="true" />
-              <span>{projectCategories.find(c => c.id === activeCategory)?.label || 'All'}</span>
-              <ChevronDown className={`chevron ${isMobileFilterOpen ? 'open' : ''}`} aria-hidden="true" />
-            </button>
-
-            <AnimatePresence>
-              {isMobileFilterOpen && (
-                <motion.div
-                  className="filter-dropdown"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  role="listbox"
-                  aria-label="Project categories"
-                >
-                  {projectCategories.map(category => (
-                    <button
-                      key={category.id}
-                      className={`filter-option ${activeCategory === category.id ? 'active' : ''}`}
-                      onClick={() => handleCategoryChange(category.id)}
-                      role="option"
-                      aria-selected={activeCategory === category.id}
-                    >
-                      {category.label}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <SearchToolbar
+            placeholder="Search projects by title, description, or technology..."
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            onClearSearch={clearSearch}
+            categories={projectCategories}
+            activeCategory={activeCategory}
+            onCategorySelect={handleCategoryChange}
+          />
         </motion.div>
 
         <motion.div
