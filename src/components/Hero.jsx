@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Mail, Phone } from 'lucide-react'
+import { Mail, Phone, FileText } from 'lucide-react'
 
 const GitHubIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -16,6 +16,8 @@ const LinkedInIcon = () => (
 )
 
 function Hero() {
+  const resumePath = '/resume.pdf'
+
   return (
     <section id="hero" className="hero" aria-labelledby="hero-heading">
       <div className="hero-background" aria-hidden="true">
@@ -87,10 +89,20 @@ function Hero() {
               Contact Me
             </a>
             <a
-              href="#"
+              href={resumePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+              aria-label="View Resume"
+            >
+              <FileText size={18} aria-hidden="true" className="btn-icon" />
+              View Resume
+            </a>
+            <a
+              href={resumePath}
+              download="Deepak_R_Resume.pdf"
               className="btn btn-ghost"
               aria-label="Download Resume"
-              download="Deepak_R_Resume.pdf"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="btn-icon">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

@@ -53,7 +53,8 @@ function BuildCard({ category, index }) {
     <motion.article
       className="build-card"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
       whileHover={{ y: -4 }}
     >
@@ -70,15 +71,28 @@ function WhatIBuild() {
   return (
     <section id="what-i-build" className="what-i-build" aria-labelledby="what-i-build-heading">
       <div className="section-container">
-        <div className="section-header">
-          <motion.p className="section-label" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>What I Build</motion.p>
-          <motion.h2 id="what-i-build-heading" className="section-title" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>My Focus Areas</motion.h2>
-        </div>
-        <div className="build-grid" role="list">
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="section-label">What I Build</p>
+          <h2 id="what-i-build-heading" className="section-title">My Focus Areas</h2>
+        </motion.div>
+        <motion.div
+          className="build-grid"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5 }}
+          role="list"
+        >
           {buildCategories.map((category, index) => (
             <BuildCard key={category.id} category={category} index={index} role="listitem" />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
