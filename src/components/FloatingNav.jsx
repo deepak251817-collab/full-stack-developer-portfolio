@@ -63,10 +63,15 @@ function FloatingNav() {
     <motion.div
       className="floating-nav"
       initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : 20 }}
+      animate={{
+        opacity: visible ? 1 : 0,
+        x: visible ? 0 : 20,
+        pointerEvents: visible ? 'auto' : 'none'
+      }}
       transition={{ duration: 0.3 }}
       role="navigation"
       aria-label="Section navigation"
+      aria-hidden={!visible}
     >
       <div className="floating-nav-inner">
         {navSections.map(({ id, label, icon: Icon }) => (

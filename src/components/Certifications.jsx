@@ -1,15 +1,9 @@
 import { motion } from 'framer-motion'
-import { Award, Code, Layout, Briefcase } from 'lucide-react'
 import { getFeaturedCertifications } from '../data/certifications'
+import CertificationCard from './CertificationCard'
 
 function Certifications() {
   const featuredCerts = getFeaturedCertifications()
-
-  const categoryIcons = {
-    'data-analytics': Briefcase,
-    'programming': Code,
-    'ui-ux': Layout
-  }
 
   return (
     <section id="certifications" className="certifications" aria-labelledby="certifications-heading">
@@ -33,36 +27,9 @@ function Certifications() {
           transition={{ duration: 0.5 }}
           role="list"
         >
-          {featuredCerts.map((cert, index) => {
-            const CategoryIcon = categoryIcons[cert.category] || Award
-            return (
-              <motion.article
-                key={cert.id}
-                className="certification-card"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                whileHover={{ y: -4 }}
-                role="listitem"
-              >
-                <div className="certification-icon" aria-hidden="true">
-                  <CategoryIcon size={28} />
-                </div>
-                <div className="certification-content">
-                  <h3 className="certification-title">{cert.title}</h3>
-                  <div className="certification-meta">
-                    <span className="certification-provider">{cert.provider}</span>
-                    <span className="certification-year">{cert.year}</span>
-                  </div>
-                  <p className="certification-description">{cert.description}</p>
-                  <div className="certification-category">
-                    <span className="certification-category-badge">{getCategoryLabel(cert.category)}</span>
-                  </div>
-                </div>
-              </motion.article>
-            )
-          })}
+          {featuredCerts.map((cert, index) => (
+            <CertificationCard key={cert.id} cert={cert} index={index} role="listitem" />
+          ))}
         </motion.div>
 
         <motion.div
@@ -79,16 +46,6 @@ function Certifications() {
       </div>
     </section>
   )
-}
-
-function getCategoryLabel(category) {
-  const labels = {
-    all: 'All',
-    'data-analytics': 'Data Analytics',
-    programming: 'Programming',
-    'ui-ux': 'UI/UX'
-  }
-  return labels[category] || category
 }
 
 export default Certifications

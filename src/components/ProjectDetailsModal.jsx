@@ -1,14 +1,26 @@
+import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ExternalLink, GitFork, Star, Code, Database, Cpu, Layers } from 'lucide-react'
 
 export function ProjectDetailsModal({ project, onClose }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose()
+    }
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
+
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) onClose()
   }
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Escape') onClose()
-  }
 
   const categoryIcons = {
     frontend: Layers,
@@ -38,7 +50,6 @@ export function ProjectDetailsModal({ project, onClose }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-          onKeyDown={handleKeyDown}
         >
           <button
             className="modal-close"

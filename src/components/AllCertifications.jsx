@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Filter, X, ChevronDown, Award, Code, Layout, Briefcase } from 'lucide-react'
+import { Search, Filter, X, ChevronDown } from 'lucide-react'
 import { certificationData, certificationCategories, getCertificationsByCategory } from '../data/certifications'
+import CertificationCard from './CertificationCard'
 
 export function AllCertifications() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -166,63 +167,6 @@ export function AllCertifications() {
       </div>
     </section>
   )
-}
-
-function CertificationCard({ cert, index }) {
-  const categoryIcons = {
-    'data-analytics': Briefcase,
-    'programming': Code,
-    'ui-ux': Layout
-  }
-
-  const CategoryIcon = categoryIcons[cert.category] || Award
-
-  return (
-    <motion.article
-      className="certification-card"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-      whileHover={{ y: -4 }}
-      role="listitem"
-    >
-      <div className="certification-icon" aria-hidden="true">
-        <CategoryIcon size={28} />
-      </div>
-      <div className="certification-content">
-        <h3 className="certification-title">{cert.title}</h3>
-        <div className="certification-meta">
-          <span className="certification-provider">{cert.provider}</span>
-          <span className="certification-year">{cert.year}</span>
-        </div>
-        <p className="certification-description">{cert.description}</p>
-        <div className="certification-category">
-          <span className="certification-category-badge">{getCategoryLabel(cert.category)}</span>
-        </div>
-        {cert.credentialUrl && (
-          <a
-            href={cert.credentialUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="certification-link"
-          >
-            Verify Credential
-          </a>
-        )}
-      </div>
-    </motion.article>
-  )
-}
-
-function getCategoryLabel(category) {
-  const labels = {
-    all: 'All',
-    'data-analytics': 'Data Analytics',
-    programming: 'Programming',
-    'ui-ux': 'UI/UX'
-  }
-  return labels[category] || category
 }
 
 export default AllCertifications

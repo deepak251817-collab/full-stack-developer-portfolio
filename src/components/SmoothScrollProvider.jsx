@@ -1,32 +1,8 @@
-'use client'
-
-import { useEffect } from 'react'
-import Lenis from '@studio-freight/lenis'
-
+/**
+ * SmoothScrollProvider
+ * Provides clean, native document-level scrolling without third-party scroll hijacking
+ * or event-interception that breaks wheel, touch, and keyboard (PageUp/Down/Home/End) navigation.
+ */
 export function SmoothScrollProvider({ children }) {
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: !prefersReducedMotion,
-      smoothTouch: false,
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-    })
-
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-
-    return () => {
-      lenis.destroy()
-    }
-  }, [])
-
   return children
 }

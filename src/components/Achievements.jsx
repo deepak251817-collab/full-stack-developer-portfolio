@@ -1,25 +1,6 @@
 import { motion } from 'framer-motion'
-
-const achievements = [
-  {
-    id: 1,
-    title: 'HackOcean 2026',
-    role: 'Finalist',
-    date: 'July 2026',
-    description: 'National-Level Frontend Hackathon',
-    organization: 'Digital Learning Group (DLG), MITS Gwalior',
-    icon: 'trophy'
-  },
-  {
-    id: 2,
-    title: 'Null Point',
-    role: 'Technical Event Participant',
-    date: '',
-    description: '',
-    organization: 'K.S. Institute of Technology, Bengaluru',
-    icon: 'code'
-  }
-]
+import { ExternalLink } from 'lucide-react'
+import { achievementsData } from '../data/achievements'
 
 const icons = {
   trophy: (
@@ -41,6 +22,8 @@ const icons = {
 }
 
 function AchievementCard({ achievement, index }) {
+  const hasProof = Boolean(achievement.proof)
+
   return (
     <motion.article
       className="achievement-card"
@@ -49,9 +32,10 @@ function AchievementCard({ achievement, index }) {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
       whileHover={{ y: -4 }}
+      role="listitem"
     >
       <div className="achievement-icon" aria-hidden="true">
-        {icons[achievement.icon]}
+        {icons[achievement.icon] || icons.trophy}
       </div>
       <div className="achievement-content">
         <div className="achievement-header">
@@ -67,6 +51,21 @@ function AchievementCard({ achievement, index }) {
           <p className="achievement-description">{achievement.description}</p>
         )}
         <p className="achievement-organization">{achievement.organization}</p>
+
+        {hasProof && (
+          <div className="achievement-actions">
+            <a
+              href={achievement.proof}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="achievement-proof-btn"
+              aria-label={`View proof for ${achievement.title} in new tab`}
+            >
+              <span>View Proof</span>
+              <ExternalLink size={13} aria-hidden="true" />
+            </a>
+          </div>
+        )}
       </div>
     </motion.article>
   )
@@ -94,7 +93,7 @@ function Achievements() {
           transition={{ duration: 0.5 }}
           role="list"
         >
-          {achievements.map((achievement, index) => (
+          {achievementsData.map((achievement, index) => (
             <AchievementCard key={achievement.id} achievement={achievement} index={index} role="listitem" />
           ))}
         </motion.div>

@@ -29,12 +29,10 @@ export function AllProjects() {
 
   const handleOpenDetails = (project) => {
     setSelectedProject(project)
-    document.body.style.overflow = 'hidden'
   }
 
   const handleCloseDetails = () => {
     setSelectedProject(null)
-    document.body.style.overflow = ''
   }
 
   const handleSearchChange = (e) => {
