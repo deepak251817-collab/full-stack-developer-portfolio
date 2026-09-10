@@ -3,8 +3,10 @@ import Hero from './components/Hero.jsx'
 import About from './components/About.jsx'
 import Skills from './components/Skills.jsx'
 import Projects from './components/Projects.jsx'
+import AllProjects from './components/AllProjects.jsx'
 import Achievements from './components/Achievements.jsx'
 import Certifications from './components/Certifications.jsx'
+import AllCertifications from './components/AllCertifications.jsx'
 import WhatIBuild from './components/WhatIBuild.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
@@ -21,8 +23,10 @@ function App() {
         <About />
         <Skills />
         <Projects />
+        <AllProjects />
         <Achievements />
         <Certifications />
+        <AllCertifications />
         <WhatIBuild />
         <Contact />
       </main>
