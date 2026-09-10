@@ -22,10 +22,16 @@ function BackToTop() {
     <motion.button
       className="back-to-top"
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.8, y: visible ? 0 : 20 }}
+      animate={{
+        opacity: visible ? 1 : 0,
+        scale: visible ? 1 : 0.8,
+        y: visible ? 0 : 20,
+        pointerEvents: visible ? 'auto' : 'none'
+      }}
       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
       onClick={scrollToTop}
       aria-label="Back to top"
+      aria-hidden={!visible}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >

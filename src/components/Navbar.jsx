@@ -1,17 +1,43 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ThemeToggle from './ThemeToggle'
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('hero')
   const hamburgerRef = useRef(null)
 
+  // Scroll listener for navbar glass effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Active section tracking via IntersectionObserver
+  useEffect(() => {
+    const sectionIds = ['hero', 'about', 'skills', 'projects', 'achievements', 'certifications', 'what-i-build', 'contact']
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+    )
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
   }, [])
 
   const closeMenu = () => setIsMenuOpen(false)
@@ -29,14 +55,14 @@ function Navbar() {
   }, [handleKeyDown])
 
   const navLinks = [
-    { href: '#hero', label: 'Home' },
-    { href: '#about', label: 'About' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#achievements', label: 'Achievements' },
-    { href: '#certifications', label: 'Certifications' },
-    { href: '#what-i-build', label: 'What I Build' },
-    { href: '#contact', label: 'Contact' }
+    { href: '#hero', label: 'Home', id: 'hero' },
+    { href: '#about', label: 'About', id: 'about' },
+    { href: '#skills', label: 'Skills', id: 'skills' },
+    { href: '#projects', label: 'Projects', id: 'projects' },
+    { href: '#achievements', label: 'Achievements', id: 'achievements' },
+    { href: '#certifications', label: 'Certifications', id: 'certifications' },
+    { href: '#what-i-build', label: 'What I Build', id: 'what-i-build' },
+    { href: '#contact', label: 'Contact', id: 'contact' }
   ]
 
   return (
@@ -79,96 +105,110 @@ function Navbar() {
                 <a
                   href={link.href}
                   role="menuitem"
-                  className="navbar-link"
+                  className={`navbar-link ${activeSection === link.id ? 'navbar-link-active' : ''}`}
                   onClick={closeMenu}
-                  whileHover={{ y: -2 }}
+                  aria-current={activeSection === link.id ? 'location' : undefined}
                 >
                   {link.label}
+                  {activeSection === link.id && (
+                    <motion.span
+                      className="navbar-link-indicator"
+                      layoutId="navbar-indicator"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      aria-hidden="true"
+                    />
+                  )}
                 </a>
               </motion.li>
             ))}
           </ul>
-          <motion.a
-            href="#contact"
-            className="btn btn-primary navbar-cta"
-            onClick={closeMenu}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Contact Me
-          </motion.a>
+
+          <div className="navbar-actions">
+            <ThemeToggle />
+            <motion.a
+              href="#contact"
+              className="btn btn-primary navbar-cta"
+              onClick={closeMenu}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Contact Me
+            </motion.a>
+          </div>
         </motion.div>
 
-        <button
-          ref={hamburgerRef}
-          className="navbar-toggle"
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          type="button"
-          whileTap={{ scale: 0.95 }}
-        >
-          <AnimatePresence mode="wait">
-            {isMenuOpen ? (
-              <motion.div
-                className="hamburger"
-                key="close"
-                initial={{ rotate: 0 }}
-                animate={{ rotate: 180 }}
-                transition={{ duration: 0.3 }}
-                aria-hidden="true"
-              >
-                <motion.span
-                  className="hamburger-line"
-                  initial={{ rotate: 0, y: 0 }}
-                  animate={{ rotate: 45, y: 6 }}
+        <div className="navbar-mobile-actions">
+          <ThemeToggle />
+          <button
+            ref={hamburgerRef}
+            className="navbar-toggle"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            type="button"
+          >
+            <AnimatePresence mode="wait">
+              {isMenuOpen ? (
+                <motion.div
+                  className="hamburger"
+                  key="close"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 180 }}
                   transition={{ duration: 0.3 }}
-                />
-                <motion.span
-                  className="hamburger-line"
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  className="hamburger-line"
-                  initial={{ rotate: 0, y: 0 }}
-                  animate={{ rotate: -45, y: -6 }}
+                  aria-hidden="true"
+                >
+                  <motion.span
+                    className="hamburger-line"
+                    initial={{ rotate: 0, y: 0 }}
+                    animate={{ rotate: 45, y: 6 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="hamburger-line"
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  <motion.span
+                    className="hamburger-line"
+                    initial={{ rotate: 0, y: 0 }}
+                    animate={{ rotate: -45, y: -6 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  className="hamburger"
+                  key="open"
+                  initial={{ rotate: 180 }}
+                  animate={{ rotate: 0 }}
                   transition={{ duration: 0.3 }}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                className="hamburger"
-                key="open"
-                initial={{ rotate: 180 }}
-                animate={{ rotate: 0 }}
-                transition={{ duration: 0.3 }}
-                aria-hidden="true"
-              >
-                <motion.span
-                  className="hamburger-line"
-                  initial={{ rotate: 45, y: 6 }}
-                  animate={{ rotate: 0, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <motion.span
-                  className="hamburger-line"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2, delay: 0.2 }}
-                />
-                <motion.span
-                  className="hamburger-line"
-                  initial={{ rotate: -45, y: -6 }}
-                  animate={{ rotate: 0, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
+                  aria-hidden="true"
+                >
+                  <motion.span
+                    className="hamburger-line"
+                    initial={{ rotate: 45, y: 6 }}
+                    animate={{ rotate: 0, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="hamburger-line"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2, delay: 0.2 }}
+                  />
+                  <motion.span
+                    className="hamburger-line"
+                    initial={{ rotate: -45, y: -6 }}
+                    animate={{ rotate: 0, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -178,26 +218,27 @@ function Navbar() {
             className="navbar-mobile"
             role="navigation"
             aria-label="Mobile navigation"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ overflow: 'hidden' }}
           >
             <ul className="navbar-mobile-links" role="menubar">
               {navLinks.map((link, index) => (
                 <motion.li
                   key={link.href}
                   role="none"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  transition={{ duration: 0.25, delay: index * 0.04 }}
                 >
                   <a
                     href={link.href}
                     role="menuitem"
-                    className="navbar-mobile-link"
+                    className={`navbar-mobile-link ${activeSection === link.id ? 'navbar-mobile-link-active' : ''}`}
                     onClick={closeMenu}
-                    whileHover={{ x: 4 }}
+                    aria-current={activeSection === link.id ? 'location' : undefined}
                   >
                     {link.label}
                   </a>
@@ -205,9 +246,9 @@ function Navbar() {
               ))}
               <motion.li
                 role="none"
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: navLinks.length * 0.05 }}
+                transition={{ duration: 0.25, delay: navLinks.length * 0.04 }}
               >
                 <motion.a
                   href="#contact"

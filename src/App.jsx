@@ -13,27 +13,30 @@ import Footer from './components/Footer.jsx'
 import FloatingNav from './components/FloatingNav.jsx'
 import BackToTop from './components/BackToTop.jsx'
 import { SmoothScrollProvider } from './components/SmoothScrollProvider.jsx'
+import { ThemeProvider } from './context/ThemeContext.jsx'
 
 function App() {
   return (
-    <SmoothScrollProvider>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <AllProjects />
-        <Achievements />
-        <Certifications />
-        <AllCertifications />
-        <WhatIBuild />
-        <Contact />
-      </main>
-      <Footer />
-      <FloatingNav />
-      <BackToTop />
-    </SmoothScrollProvider>
+    <ThemeProvider>
+      <SmoothScrollProvider>
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <AllProjects />
+          <Achievements />
+          <Certifications />
+          <AllCertifications />
+          <WhatIBuild />
+          <Contact />
+        </main>
+        <Footer />
+        <FloatingNav />
+        <BackToTop />
+      </SmoothScrollProvider>
+    </ThemeProvider>
   )
 }
 
