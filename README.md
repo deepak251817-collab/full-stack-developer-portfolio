@@ -65,33 +65,33 @@ scans stored in each folder's `previews/` subfolder.
 
 ---
 
-## 🔒 Private files — .gitignore policy
+## 🔒 Personal files — tracking policy
 
-Your personal documents are **deliberately kept out of git**. They work on
-your machine (the dev server serves them from `public/`), but they will never
-be committed or pushed:
+The profile photo, résumé and all certificate/achievement PDFs **are tracked
+in the repo** (force-added with `git add -f`) because the production site
+serves them from `public/` — without them the deployed hero shows a monogram
+and the proof/résumé buttons 404.
 
-| Ignored                                             | Why                                  |
-| --------------------------------------------------- | ------------------------------------ |
-| `public/profile.jpg` / `.jpeg` / `.png`             | your photo                            |
-| `public/resume.pdf`                                 | your résumé                           |
-| `public/certificates/*.pdf` `*.jpg` …               | real certificate documents            |
-| `public/achievements/*.pdf` `*.jpg` …               | real achievement proofs               |
-| any `*.pdf` / `*.doc*` anywhere in the repo         | safety net for stray documents        |
+`.gitignore` still blocks this category of file by default, so any **new**
+certificate you drop in later needs one extra step when committing:
 
-**Still committed** (needed for the site to build/deploy):
+```bash
+git add -f public/certificates/your-new-certificate.pdf
+git commit -m "Add certificate"
+```
+
+> ℹ️ **Privacy note:** the repo is public, so these documents are public too —
+> the same ones the live site already serves anyone who visits. Don't add
+> anything more sensitive than that (IDs, address proofs, transcripts) to
+> `public/`.
+
+**Committed alongside them:**
 
 - `public/certificates/previews/` & `public/achievements/previews/` — the small
-  card thumbnails. Without them a fresh clone shows placeholder art instead of
-  certificate previews. If you'd rather keep these private too, delete the two
-  `!public/*/previews/**` lines in `.gitignore` — the cards degrade gracefully.
+  card thumbnails shown on the cards.
+- `public/achievements/display/` — upright (rotation-corrected) PDFs used by
+  the View Proof buttons.
 - `public/favicon.svg`, `public/icons.svg`, folder `README.txt`s.
-
-> ⚠️ **Deploying?** (Vercel/Netlify from git) Ignored files won't exist in the
-> deployment, so profile photo, résumé and proof PDFs will 404 there. Either
-> upload them via the host's static-asset/secret-file feature, or force-add
-> specific files (`git add -f public/profile.jpg`) if you accept them being
-> public in the repo.
 
 ---
 
@@ -130,12 +130,13 @@ src/
     SpotlightCard.tsx     ← pointer-tracking glow used across cards
     Reveal.tsx            ← shared scroll-animation system
 public/
-  profile.jpg             ← your photo          (git-ignored)
-  resume.pdf              ← your résumé         (git-ignored)
+  profile.jpg             ← your photo          (committed)
+  resume.pdf              ← your résumé         (committed)
   certificates/
-    *.pdf                 ← real certificates   (git-ignored)
+    *.pdf                 ← real certificates   (committed)
     previews/             ← card thumbnails     (committed)
   achievements/
-    *.pdf                 ← real proofs         (git-ignored)
+    *.pdf                 ← real proofs         (committed)
+    display/              ← rotation-corrected PDFs (committed)
     previews/             ← card thumbnails     (committed)
 ```
