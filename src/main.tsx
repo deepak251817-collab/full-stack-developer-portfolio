@@ -7,17 +7,28 @@ import "./index.css"
 
 const rootElement = document.getElementById("root")!
 if (!rootElement.innerHTML) {
-  // When VITE_CONVEX_URL is missing (e.g. before `npx convex dev` has run)
-  // we still mount a provider pointed at a placeholder so hooks exist;
-  // mutations then fail gracefully and surface error toasts.
-  const convexUrl = import.meta.env.VITE_CONVEX_URL ?? "https://not-configured.convex.cloud"
-  const client = new ConvexReactClient(convexUrl)
+  // Convex is optional (the UI doesn't use it — the contact form uses
+  // FormSubmit). An empty/missing VITE_CONVEX_URL (e.g. on Vercel) must
+  // never crash the app: use || so "" also falls back, and try/catch so a
+  // bad URL can never blank the page.
+  const convexUrl = import.meta.env.VITE_CONVEX_URL || "https://not-configured.convex.cloud"
+
+  let client: ConvexReactClient | null = null
+  try {
+    client = new ConvexReactClient(convexUrl)
+  } catch {
+    client = null
+  }
 
   createRoot(rootElement).render(
     <StrictMode>
-      <ConvexProvider client={client}>
+      {client ? (
+        <ConvexProvider client={client}>
+          <App />
+        </ConvexProvider>
+      ) : (
         <App />
-      </ConvexProvider>
+      )}
     </StrictMode>
   )
 }
