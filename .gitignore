@@ -27,3 +27,43 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ------------------------------------------------------------------
+# Personal documents — never commit these
+# (certificates, proofs, IDs, photos). The site loads them from
+# public/ at runtime; they just must not land in the repo.
+# ------------------------------------------------------------------
+
+# Profile photo
+public/profile.jpg
+public/profile.jpeg
+public/profile.png
+
+# Résumé
+public/resume.pdf
+
+# Real certificate & achievement proof documents (PDFs, scans, images)
+public/certificates/*.pdf
+public/certificates/*.jpg
+public/certificates/*.jpeg
+public/certificates/*.png
+public/achievements/*.pdf
+public/achievements/*.jpg
+public/achievements/*.jpeg
+public/achievements/*.png
+
+# Loose documents anywhere in the repo (safety net)
+*.pdf
+*.doc
+*.docx
+
+# ...but keep anything already published intentionally
+!public/favicon.svg
+!public/icons.svg
+!public/certificates/previews/**
+!public/achievements/previews/**
+!public/certificates/README.txt
+!public/achievements/README.txt
+
+# Freebuff local state
+.freebuff/

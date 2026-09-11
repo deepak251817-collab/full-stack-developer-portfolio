@@ -1,138 +1,141 @@
-# Deepak R — Full Stack Developer Portfolio
+# Deepak R — Developer Portfolio
 
-Personal portfolio website showcasing development skills, projects, achievements, and contact information.
+Modern, animated developer portfolio built with **React 19 + Vite + TypeScript,
+Tailwind CSS v4, shadcn/ui, Framer Motion and next-themes**.
 
-## About
+---
 
-Artificial Intelligence & Machine Learning Undergraduate (B.E., K.S. Institute of Technology, CGPA 9.16/10) based in Bengaluru, India. Interested in building practical software applications that combine frontend, backend, data, and AI/ML technologies. Experienced with Python, Java, JavaScript, SQL, and modern frameworks including React, Vite, Node.js, FastAPI, and REST APIs.
+## ✏️ Editing your content — one file to rule them all
 
-## Features
+**Everything on the site comes from [`src/lib/portfolio.ts`](src/lib/portfolio.ts).**
+Open that file, change the values, save — the site updates instantly.
 
-- Responsive single-page portfolio
-- Responsive navigation with mobile hamburger menu
-- Hero section with professional introduction
-- About section with highlights, achievements, and certifications
-- Skills and tools organized by category
-- Project showcase with technology tags
-- Contact form with client-side validation
-- Accessible form controls with proper labels and error messaging
-- Subtle UI interactions and entrance animations
-- Reduced motion support
-- Dark mode support via system preference
+### Your profile photo ✅ (already installed)
 
-## Tech Stack
+The photo lives at **`public/profile.jpg`** and the hero avatar picks it up
+automatically. To swap it: just overwrite that file with any square-ish image
+(≥ 400×400 looks best — it's displayed as a ~144 px circle). Keep the name
+`profile.jpg`, or rename it and update `profile.photoUrl` at the top of
+`src/lib/portfolio.ts`.
 
-- React 19
-- Vite 8
-- JavaScript (ESM)
-- CSS (custom, no frameworks)
+> 🔒 **Note:** `public/profile.jpg` is git-ignored (see
+> [Private files](#-private-files--gitignore-policy) below) — the photo stays
+> on your machine and is **never pushed** to the repository.
 
-Development tooling:
-- ESLint 10
-- Vite plugin React
+### View résumé button
 
-## Featured Projects
+The button links to `public/resume.pdf`. Replace that file with your real
+résumé (keep the same name). If you rename it, update `profile.resumeUrl`
+in `src/lib/portfolio.ts`. *(Also git-ignored — never pushed.)*
 
-### FinTrack – AI Expense Manager
+### Adding projects from your GitHub
 
-**Technologies:** Python, FastAPI, Pandas, NumPy, Scikit-learn, JavaScript
+Open `src/lib/portfolio.ts`, scroll to the `projects` array (there's a
+**HOW TO ADD A NEW PROJECT** comment right above it with a fill-in template).
+Copy the template to the bottom of the array and fill in:
 
-AI-powered expense management application for tracking transactions, budgets, and spending patterns. Includes expense forecasting using Linear Regression, automatic transaction categorization using TF-IDF and Logistic Regression, and Isolation Forest-based anomaly detection exposed via FastAPI REST endpoints.
+| Field       | What to put                                                          |
+| ----------- | -------------------------------------------------------------------- |
+| `id`        | unique lowercase id, e.g. `"expense-tracker"`                         |
+| `title`     | project name as it should appear                                      |
+| `category`  | `"fullstack"`, `"aiml"` or `"tools"` — decides which filter shows it  |
+| `blurb`     | one sentence shown on the card (3 lines max)                          |
+| `description` | 2–3 sentences shown when the card is opened                        |
+| `bullets`   | 3–6 highlights, each a short string                                   |
+| `tech`      | tech tags, e.g. `["React", "FastAPI"]`                                |
+| `icon`      | any icon from `lucide-react` (it's already imported at the top)       |
+| `featured`  | `true` gives it the 🔥 Featured badge                                 |
+| `githubUrl` | your repo URL, e.g. `https://github.com/<you>/<repo>`                 |
+| `liveUrl`   | demo link (optional)                                                  |
 
-### STARS RouteFinder – Road Safety Navigation
+Filters, animations and detail dialogs pick new projects up automatically —
+no other file changes needed.
 
-**Technologies:** React, Vite, Mapbox GL JS, Recharts, OpenWeather API, Tesseract.js
+### Certificates & achievements
 
-Route planning application with multiple route comparison and interactive Mapbox visualization. Features traffic and weather information, route-specific environmental insights, pothole reporting, camera uploads with EXIF GPS extraction, browser geolocation, and Tesseract.js OCR fallback.
+Real proof documents live in two folders (each has its own `README.txt`):
 
-### Ocean Guardian AI
+- **`public/certificates/`** — course/program certificate PDFs
+- **`public/achievements/`** — award, hackathon, merit & conference PDFs
 
-**Technologies:** React, Vite, Tailwind CSS, Recharts, Leaflet, Framer Motion
+The mapping between each card and its real document is in
+`src/lib/portfolio.ts` (`certificates` / `achievements` arrays — `file` for
+the PDF, `preview` for the card thumbnail). **Card thumbnails** are extracted
+scans stored in each folder's `previews/` subfolder.
 
-Interactive platform for monitoring ocean health, marine biodiversity, and pollution. Includes interactive maps, data visualization dashboards, ocean health monitoring, temperature data, species and coral reef information, pollution trends, alert monitoring, reports, ocean details, AI assistant interface, and responsive React application.
+---
 
-## Achievements
+## 🔒 Private files — .gitignore policy
 
-**HackOcean 2026 — Finalist**  
-July 2026  
-National-Level Frontend Hackathon  
-Digital Learning Group (DLG), MITS Gwalior
+Your personal documents are **deliberately kept out of git**. They work on
+your machine (the dev server serves them from `public/`), but they will never
+be committed or pushed:
 
-**Null Point — Technical Event Participant**  
-K.S. Institute of Technology, Bengaluru
+| Ignored                                             | Why                                  |
+| --------------------------------------------------- | ------------------------------------ |
+| `public/profile.jpg` / `.jpeg` / `.png`             | your photo                            |
+| `public/resume.pdf`                                 | your résumé                           |
+| `public/certificates/*.pdf` `*.jpg` …               | real certificate documents            |
+| `public/achievements/*.pdf` `*.jpg` …               | real achievement proofs               |
+| any `*.pdf` / `*.doc*` anywhere in the repo         | safety net for stray documents        |
 
-## Certifications
+**Still committed** (needed for the site to build/deploy):
 
-- Deloitte Australia Data Analytics Job Simulation — Forage, 2026
-- Scientific Computing with Python — freeCodeCamp
-- Python Fundamentals — Infosys Springboard
-- Java for Beginners — Infosys Springboard
-- Java Programming — Great Learning
-- UI/UX for Beginners — Great Learning
+- `public/certificates/previews/` & `public/achievements/previews/` — the small
+  card thumbnails. Without them a fresh clone shows placeholder art instead of
+  certificate previews. If you'd rather keep these private too, delete the two
+  `!public/*/previews/**` lines in `.gitignore` — the cards degrade gracefully.
+- `public/favicon.svg`, `public/icons.svg`, folder `README.txt`s.
 
-## Getting Started
+> ⚠️ **Deploying?** (Vercel/Netlify from git) Ignored files won't exist in the
+> deployment, so profile photo, résumé and proof PDFs will 404 there. Either
+> upload them via the host's static-asset/secret-file feature, or force-add
+> specific files (`git add -f public/profile.jpg`) if you accept them being
+> public in the repo.
 
-### Prerequisites
+---
 
-- Node.js 18+ and npm
+## 📬 Contact form
 
-### Installation
+The form sends messages straight to **deepak251817@gmail.com** via
+[FormSubmit](https://formsubmit.co)'s free email forwarding — no backend, no
+server, no database.
 
-```bash
-# Clone the repository
-git clone <repository-url>
-cd full-stack-developer-portfolio
+**One-time activation:** the very first submission emails you an activation
+link from FormSubmit — click it once and every submission after that arrives
+in your inbox like a normal email (visitor's email is set as reply-to).
+Until activated, visitors see an honest error toast suggesting a direct email.
 
-# Install dependencies
-npm install
+---
 
-# Start development server
-npm run dev
+## Scripts
+
+| Command             | Description                       |
+| ------------------- | --------------------------------- |
+| `npm run dev`       | Dev server at `localhost:5173`    |
+| `npm run build`     | Typecheck + production build      |
+| `npm run preview`   | Preview the production build      |
+| `npm run lint`      | ESLint                            |
+
+## Structure
+
 ```
-
-The development server will start at `http://localhost:5173` (or next available port).
-
-### Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Create production build |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run ESLint |
-
-## Production Build
-
-```bash
-# Create optimized production build
-npm run build
+src/
+  lib/portfolio.ts        ← ALL your content lives here
+  components/
+    sections/             ← Hero, About, Skills, Projects, Journey,
+                            Certificates, Achievements, Contact
+    layout/               ← Navbar, Footer, ScrollToTop
+    ui/                   ← shadcn/ui primitives
+    SpotlightCard.tsx     ← pointer-tracking glow used across cards
+    Reveal.tsx            ← shared scroll-animation system
+public/
+  profile.jpg             ← your photo          (git-ignored)
+  resume.pdf              ← your résumé         (git-ignored)
+  certificates/
+    *.pdf                 ← real certificates   (git-ignored)
+    previews/             ← card thumbnails     (committed)
+  achievements/
+    *.pdf                 ← real proofs         (git-ignored)
+    previews/             ← card thumbnails     (committed)
 ```
-
-The production build outputs to the `dist/` directory. To preview it locally:
-
-```bash
-npm run preview
-```
-
-This serves the production build at `http://localhost:4173` (or next available port).
-
-## Deployment
-
-**Live URL:** [Add Vercel/Netlify URL after deployment]
-
-Deploy the `dist/` directory to any static hosting service (Vercel, Netlify, GitHub Pages, etc.).
-
-## Repository
-
-**GitHub:** [Add repository URL after publishing]
-
-## Contact
-
-- **Email:** deepak251817@gmail.com
-- **Phone:** +91 8867034217
-- **GitHub:** [Add GitHub profile URL]
-- **LinkedIn:** [Add LinkedIn profile URL]
-
-## License
-
-No license specified. All rights reserved.
